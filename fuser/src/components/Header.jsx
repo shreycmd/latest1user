@@ -33,7 +33,7 @@ export const Header = () => {
 
   return (
     <motion.div
-      className={`fixed z-10 top-0 w-full h-fit flex justify-between items-center py-2 px-4 md:px-8 ${nav ? 'bg-opacity-70 shadow-sm  duration-300 shadow-black' : 'duration-300'} backdrop-blur-sm`}
+      className={`fixed z-10 top-0 w-full h-fit flex justify-between items-center py-2 px-4 md:px-8 ${nav ? 'bg-white shadow-sm  duration-300 shadow-black' : 'duration-300'} `}
       animate={controls}
       transition={{ duration: 0.3 }}
     >

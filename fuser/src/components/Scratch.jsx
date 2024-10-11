@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import vk from "../assets/vikvivo.jpg";
+import vk1 from "../assets/vk1.png";
 import { useNavigate } from 'react-router-dom';
 
 const Scratch = () => {
@@ -35,9 +35,13 @@ const Scratch = () => {
       try {
         const response = await fetch('http://localhost:3000/campaign');
         const result = await response.json();
-
-        if (response.ok) {
-          setCampaignOptions(result.data.map(campaign => campaign.Name));
+        console.log(result.data)
+        if (response.ok&&result.data) {
+          setCampaignOptions(
+            result.data
+              .filter(campaign => new Date(campaign.End_date) >= new Date()) // Filter campaigns by end_date
+              .map(campaign => campaign.Name) // Map to campaign names
+          );
           setType(result.data[0].FortuneWheel);
         } else {
           console.error('Error fetching campaigns:', result.message);
@@ -224,7 +228,7 @@ const Scratch = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-custom-radial-gradient p-4">
       <div className='img mb-6 w-full max-w-2xl'>
-        <img src={vk} alt="Vivo" className='object-cover mx-auto rounded-lg w-full' />
+        <img src={vk1} alt="Vivo" className='object-cover mx-auto rounded-lg w-full' />
       </div>
 
       <div className='form-container bg-white p-8 rounded-lg shadow-md w-full max-w-xl'>
@@ -241,7 +245,9 @@ const Scratch = () => {
             className='border rounded-md p-2 w-full'
           >
             <option value=''>Select Campaign</option>
-            {campaignOptions.map((campaign, index) => (
+            {console.log(campaignOptions)}
+            {campaignOptions.map((campaign, index) => ( 
+              
               <option key={index} value={campaign}>{campaign}</option>
             ))}
           </select>

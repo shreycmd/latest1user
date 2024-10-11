@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import vk from "../assets/vikvivo2.jpg";
+import vk from "../assets/X100.png";
 import Carousel from './Carousel';
 import { Link } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ const Home = () => {
       <motion.img
         src={vk}
         alt="Vivo"
-        className='object-cover mx-auto mb-6 rounded-lg w-full max-w-2xl'
+        className='object-cover mx-auto mb-6 rounded-lg w-full '
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
