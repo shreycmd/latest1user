@@ -33,7 +33,7 @@ const Scratch = () => {
   useEffect(() => {
     const fetchCampaigns = async () => {
       try {
-        const response = await fetch('http://localhost:3000/campaign');
+        const response = await fetch('https://backend.jkvivo.in/campaign');
         const result = await response.json();
         console.log(result.data)
         if (response.ok&&result.data) {
@@ -66,7 +66,7 @@ const Scratch = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/uniqueProducts/${formData.selectedCampaign}`);
+        const response = await fetch(`https://backend.jkvivo.in/uniqueProducts/${formData.selectedCampaign}`);
         const result = await response.json();
 
         if (response.ok) {
@@ -149,7 +149,7 @@ const Scratch = () => {
   
     try {
       setIsLoading(true);
-      const response = await fetch(`http://localhost:3000/ncitem/${formData.selectedCampaign}/${formData.productUID}`);
+      const response = await fetch(`https://backend.jkvivo.in/ncitem/${formData.selectedCampaign}/${formData.productUID}`);
       const result = await response.json();
 
       if (response.ok) {
@@ -168,12 +168,12 @@ const Scratch = () => {
           formDataToSend.append('location', formData.placeOfPurchase);
           if (formData.invoice) formDataToSend.append('invoice', formData.invoice);
 
-          await fetch(`http://localhost:3000/nc/${selectedCitem.Campaign_Name}`, {
+          await fetch(`https://backend.jkvivo.in/nc/${selectedCitem.Campaign_Name}`, {
             method: 'POST',
             body: formDataToSend,
           });
 
-          await fetch(`http://localhost:3000/ncitems/${selectedCitem.Campaign_Name}/${selectedCitem.WinnerImei}`, {
+          await fetch(`https://backend.jkvivo.in/ncitems/${selectedCitem.Campaign_Name}/${selectedCitem.WinnerImei}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ Status: true, Claimedon: new Date(), WinnerName: formData.customerName }),

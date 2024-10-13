@@ -13,7 +13,7 @@ const Celebration = () => {
     useEffect(() => {
         const fetchCampaign = async () => {
           try {
-            const response = await fetch("http://localhost:3000/campaign");
+            const response = await fetch("https://backend.jkvivo.in/campaign");
             const res = await response.json();
             const required = res.data;
             console.log(required);
