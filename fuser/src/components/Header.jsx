@@ -2,18 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
 import logo from "../assets/logo-removebg-preview.png";
-import l1 from "../assets/l1.png"
+
 export const Header = () => {
   const [nav, setNav] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const controls = useAnimation();
 
   const handleScroll = () => {
-    if (window.scrollY > 0) {
-      setNav(true);
-    } else {
-      setNav(false);
-    }
+    setNav(window.scrollY > 0);
   };
 
   const toggleMenu = () => {
@@ -21,9 +17,9 @@ export const Header = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -33,9 +29,12 @@ export const Header = () => {
 
   return (
     <motion.div
-      className={`fixed z-10 top-0 w-full h-fit flex justify-between items-center py-2 px-4 md:px-8 ${nav ? 'bg-white shadow-sm  duration-300 shadow-black' : 'duration-300'} `}
+      className={`fixed z-10 bg-white top-0 w-full h-fit flex justify-between items-center py-3 px-4 md:px-8 ${
+        nav ? " shadow-sm shadow-black duration-300" : "duration-300"
+      }`}
       animate={controls}
       transition={{ duration: 0.3 }}
+      style={{ paddingTop: "2.5rem" }} // Add a small top padding
     >
       {/* Logo */}
       <div>
@@ -43,26 +42,37 @@ export const Header = () => {
       </div>
 
       {/* Desktop Menu */}
-      <div className="hidden md:flex items-center text-black  font-semibold text-xl gap-5 mx-4">
+      <div className="hidden md:flex items-center text-black font-semibold text-xl gap-5 mx-4">
         <div className="hover:underline">
-          <Link to='/'>Home</Link>
+          <Link to="/">Home</Link>
         </div>
         <div className="hover:underline">
-          <Link to='/about'>About</Link>
+          <Link to="/about">About</Link>
         </div>
         <div className="hover:underline">
-          <Link to='/contact'>Contact</Link>
+          <Link to="/contact">Contact</Link>
         </div>
         <div className="hover:underline">
-          <Link to='/form'>Play & Win</Link>
+          <Link to="/form">Play & Win</Link>
         </div>
       </div>
 
       {/* Mobile Menu Button */}
       <div className="md:hidden text-black">
         <button onClick={toggleMenu} className="focus:outline-none">
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
           </svg>
         </button>
       </div>
@@ -70,15 +80,23 @@ export const Header = () => {
       {/* Mobile Menu */}
       <motion.div
         initial={{ height: 0 }}
-        animate={{ height: menuOpen ? 'auto' : 0 }}
+        animate={{ height: menuOpen ? "auto" : 0 }}
         className="md:hidden w-full absolute top-12 left-0 bg-white shadow-lg z-10 overflow-hidden"
         transition={{ duration: 0.3 }}
       >
         <div className="flex flex-col items-center gap-4 py-4 text-black">
-          <Link to='/' onClick={toggleMenu} className="hover:underline">Home</Link>
-          <Link to='/about' onClick={toggleMenu} className="hover:underline">About</Link>
-          <Link to='/contact' onClick={toggleMenu} className="hover:underline">Contact</Link>
-          <Link to='/form' onClick={toggleMenu} className="hover:underline">Scratch & Win</Link>
+          <Link to="/" onClick={toggleMenu} className="hover:underline">
+            Home
+          </Link>
+          <Link to="/about" onClick={toggleMenu} className="hover:underline">
+            About
+          </Link>
+          <Link to="/contact" onClick={toggleMenu} className="hover:underline">
+            Contact
+          </Link>
+          <Link to="/form" onClick={toggleMenu} className="hover:underline">
+            Play & Win
+          </Link>
         </div>
       </motion.div>
     </motion.div>

@@ -6,7 +6,7 @@ import Scard from './Scard';
 const Celebration = () => {
   const location = useLocation();
   const { cgname, wprize, imei ,sprize} = location.state || {};
-  console.log(wprize,sprize, cgname, imei);
+  
     const[wheel,setwheel]=useState(false);
     const[scratch,setscratch]=useState(false)
     const [prizelist,setPrizelist]=useState([])
@@ -16,7 +16,7 @@ const Celebration = () => {
             const response = await fetch("https://backend.jkvivo.in/campaign");
             const res = await response.json();
             const required = res.data;
-            console.log(required);
+         
             if (response.ok) {
               const filtered = required.filter((item) => item.Name === cgname);
              // console.log(filtered[0].WheelPrizes)

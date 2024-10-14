@@ -8,7 +8,7 @@ const Scard = ({ scprize }) => {
     const canvasRef = useRef(null);
     const [isPrizeRevealed, setIsPrizeRevealed] = useState(false);
     const isScratchingRef = useRef(false);
-    const isConfettiTriggered = useRef(false); // New ref to prevent multiple confetti triggers
+    const isConfettiTriggered = useRef(false);
     const confettiConfig = useRef({
         particleCount: 200,
         spread: 500,
@@ -26,19 +26,16 @@ const Scard = ({ scprize }) => {
         };
     }, []);
 
-    const handleScratch = useCallback((e) => {
+    const handleScratch = useCallback((x, y) => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
-        const rect = canvas.getBoundingClientRect();
-        const x = (e.clientX || e.touches[0].clientX) - rect.left;
-        const y = (e.clientY || e.touches[0].clientY) - rect.top;
 
         ctx.globalCompositeOperation = 'destination-out';
         ctx.beginPath();
         ctx.arc(x, y, 20, 0, Math.PI * 2, false);
         ctx.fill();
 
-        setIsPrizeRevealed(true); // Reveal prize on scratch
+        setIsPrizeRevealed(true);
     }, []);
 
     const calculateScratchedPercentage = useCallback(() => {
@@ -58,7 +55,7 @@ const Scard = ({ scprize }) => {
         const percentScratched = (scratchedPixels / totalPixels) * 100;
 
         if (percentScratched > 30 && !isConfettiTriggered.current) {
-            isConfettiTriggered.current = true; // Set confetti trigger flag
+            isConfettiTriggered.current = true;
             if (scprize !== 'BadLuck') triggerConfetti();
         }
     }, [scprize]);
@@ -69,13 +66,31 @@ const Scard = ({ scprize }) => {
 
     const handleMouseDown = (e) => {
         isScratchingRef.current = true;
-        handleScratch(e);
+        const rect = canvasRef.current.getBoundingClientRect();
+        handleScratch(e.clientX - rect.left, e.clientY - rect.top);
     };
 
     const handleMouseMove = useCallback((e) => {
         if (isScratchingRef.current) {
-            handleScratch(e);
-            calculateScratchedPercentage(); // Check scratched percentage while scratching
+            const rect = canvasRef.current.getBoundingClientRect();
+            handleScratch(e.clientX - rect.left, e.clientY - rect.top);
+            calculateScratchedPercentage();
+        }
+    }, [handleScratch, calculateScratchedPercentage]);
+
+    const handleTouchStart = (e) => {
+        isScratchingRef.current = true;
+        const rect = canvasRef.current.getBoundingClientRect();
+        const touch = e.touches[0];
+        handleScratch(touch.clientX - rect.left, touch.clientY - rect.top);
+    };
+
+    const handleTouchMove = useCallback((e) => {
+        if (isScratchingRef.current) {
+            const rect = canvasRef.current.getBoundingClientRect();
+            const touch = e.touches[0];
+            handleScratch(touch.clientX - rect.left, touch.clientY - rect.top);
+            calculateScratchedPercentage();
         }
     }, [handleScratch, calculateScratchedPercentage]);
 
@@ -112,6 +127,9 @@ const Scard = ({ scprize }) => {
                         onMouseMove={handleMouseMove}
                         onMouseUp={handleMouseUp}
                         onMouseLeave={() => (isScratchingRef.current = false)}
+                        onTouchStart={handleTouchStart}
+                        onTouchMove={handleTouchMove}
+                        onTouchEnd={handleMouseUp}
                     ></canvas>
                 </div>
             </div>

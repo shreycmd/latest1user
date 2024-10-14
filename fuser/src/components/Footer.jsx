@@ -44,21 +44,16 @@ const Footer = () => {
           >
             <h3 className="font-semibold text-xl mb-2">Social</h3>
             <div className="flex justify-center md:justify-start space-x-4 mt-2"> {/* Reduced margin-top */}
-              <a href="#" className="bg-white p-2 rounded-full hover:bg-gray-200">
+              <a href="https://www.facebook.com/vivoIndia.JK
+" className="bg-white p-2 rounded-full hover:bg-gray-200">
                 <img
                   src="https://img.icons8.com/ios-filled/50/000000/facebook-new.png"
                   alt="Facebook"
                   className="w-5 h-5" // Adjusted icon size
                 />
               </a>
-              <a href="#" className="bg-white p-2 rounded-full hover:bg-gray-200">
-                <img
-                  src="https://img.icons8.com/ios-filled/50/000000/twitter.png"
-                  alt="Twitter"
-                  className="w-5 h-5" // Adjusted icon size
-                />
-              </a>
-              <a href="#" className="bg-white p-2 rounded-full hover:bg-gray-200">
+              
+              <a href="https://www.instagram.com/vivoindia.jk/ " className="bg-white p-2 rounded-full hover:bg-gray-200">
                 <img
                   src="https://img.icons8.com/ios-filled/50/000000/instagram-new.png"
                   alt="Instagram"

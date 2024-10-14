@@ -35,16 +35,16 @@ const Scratch = () => {
       try {
         const response = await fetch('https://backend.jkvivo.in/campaign');
         const result = await response.json();
-        console.log(result.data)
+     
         if (response.ok&&result.data) {
           setCampaignOptions(
             result.data
               .filter(campaign => new Date(campaign.End_date) >= new Date()) // Filter campaigns by end_date
               .map(campaign => campaign.Name) // Map to campaign names
           );
-          setType(result.data[0].FortuneWheel);
+         setType(result.data[0]?.FortuneWheel);
         } else {
-          console.error('Error fetching campaigns:', result.message);
+          console.log('Error fetching campaigns:', result.message);
           setErrors(prevErrors => ({
             ...prevErrors,
             fetchProducts: 'Error fetching campaigns.',
@@ -245,7 +245,7 @@ const Scratch = () => {
             className='border rounded-md p-2 w-full'
           >
             <option value=''>Select Campaign</option>
-            {console.log(campaignOptions)}
+            
             {campaignOptions.map((campaign, index) => ( 
               
               <option key={index} value={campaign}>{campaign}</option>

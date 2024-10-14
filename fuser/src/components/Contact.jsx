@@ -1,10 +1,13 @@
 import React from 'react';
-import { FaEnvelope } from 'react-icons/fa'; // Importing the mail icon from react-icons
-import { motion } from 'framer-motion'; // Import Framer Motion
+import { FaEnvelope } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 const Contact = () => {
   return (
-    <div className='w-full h-fit p-8 md:p-16 lg:p-20 mx-auto text-center bg-slate-800'>
+    <div 
+      className='w-full h-fit p-8 md:p-16 lg:p-20 mx-auto text-center bg-slate-800' 
+      style={{ marginTop: '5rem' }} // Add extra margin to prevent overlap with header
+    >
       <motion.div 
         className='bg-gray-50 rounded-2xl p-6 md:p-10 lg:p-12 shadow-lg'
         initial={{ opacity: 0, y: -20 }} 
