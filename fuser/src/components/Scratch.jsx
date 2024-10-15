@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import vk1 from "../assets/vk1.png";
 import { useNavigate } from 'react-router-dom';
 
+
 const Scratch = () => {
   const navigate = useNavigate();
   
@@ -107,26 +108,58 @@ const Scratch = () => {
   // Handle form input change
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: name === 'invoice' ? files[0] : value,
-    }));
-
-    // Inline email and phone number validation
-    if (name === 'customerEmail') {
-      setErrors(prevErrors => ({
-        ...prevErrors,
-        customerEmail: value ? (validateEmail(value) ? '' : 'Please enter a valid email address.') : 'Email is required.',
+  
+    if (name === 'invoice') {
+      const file = files[0];
+      const maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+  
+      if (file) {
+        const isValidFileType = ['image/jpeg', 'image/jpg', 'image/png'].includes(file.type);
+        const isValidFileSize = file.size <= maxSize;
+  
+        if (!isValidFileType) {
+          alert('Only JPEG, JPG, and PNG files are allowed.');
+          return; // Exit without setting the file if type is invalid
+        } else if (!isValidFileSize) {
+          alert('File size should not exceed 5 MB.');
+          return; // Exit without setting the file if size is invalid
+        }
+      }
+  
+      // Update state if the file is valid
+      setFormData(prevData => ({
+        ...prevData,
+        [name]: file,
       }));
-    }
-
-    if (name === 'customerNumber') {
-      setErrors(prevErrors => ({
-        ...prevErrors,
-        customerNumber: value ? (validatePhoneNumber(value) ? '' : 'Phone number must be exactly 10 digits.') : 'Phone number is required.',
+    } else {
+      // Update other form fields
+      setFormData(prevData => ({
+        ...prevData,
+        [name]: value,
       }));
+  
+      // Inline email validation
+      if (name === 'customerEmail') {
+        setErrors(prevErrors => ({
+          ...prevErrors,
+          customerEmail: value
+            ? (validateEmail(value) ? '' : 'Please enter a valid email address.')
+            : 'Email is required.',
+        }));
+      }
+  
+      // Inline phone number validation
+      if (name === 'customerNumber') {
+        setErrors(prevErrors => ({
+          ...prevErrors,
+          customerNumber: value
+            ? (validatePhoneNumber(value) ? '' : 'Phone number must be exactly 10 digits.')
+            : 'Phone number is required.',
+        }));
+      }
     }
   };
+  
 
   // Memoize required fields for validation to avoid re-calculation
   const requiredFields = useMemo(() => ['selectedCampaign', 'selectedProduct', 'productUID', 'customerName', 'customerEmail', 'customerNumber', 'placeOfPurchase', 'invoice'], []);
@@ -232,7 +265,7 @@ const Scratch = () => {
       </div>
 
       <div className='form-container bg-white p-8 rounded-lg shadow-md w-full max-w-xl'>
-        <h2 className='text-2xl font-bold mb-4'>Vivo Play and Win</h2>
+        <span className='text-3xl font-bold mb-4'>Vivo Play and Win</span>
         <p className="text-red-500 mb-4">{errors.fetchProducts}</p>
 
         <div className='form-group mb-4'>
@@ -336,16 +369,18 @@ const Scratch = () => {
 </div>
 
 
-      <div className='form-group mb-4'>
-        <label htmlFor='invoice' className='block mb-1'>Upload Invoice:</label>
-        <input 
-          type='file' 
-          id='invoice' 
-          name='invoice' 
-          onChange={handleChange} 
-          className='border rounded-md p-2 w-full'
-        />
-      </div>
+<div className='form-group mb-4'>
+<label htmlFor='invoice' className='block mb-1'>Upload Invoice:</label>
+<input 
+  type='file' 
+  id='invoice' 
+  name='invoice' 
+  accept='.jpeg, .jpg, .png'  // Only allow JPEG, JPG, and PNG
+  onChange={handleChange} 
+  className='border rounded-md p-2 w-full'
+/>
+</div>
+
 
       <div className='flex justify-between'>
       <button 
