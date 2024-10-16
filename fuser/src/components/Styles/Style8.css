@@ -88,6 +88,7 @@
     border: 2px solid #1e90ff;
 }
 
+/* Font size for prize labels */
 .spin_container .wheel .number span {
     position: relative;
     transform: rotate(45deg);
@@ -97,6 +98,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* Responsive font size adjustments */
+@media (max-width: 768px) {
+    .spin_container .wheel .number span {
+        font-size: 3vw; /* Larger font size for tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .spin_container .wheel .number span {
+        font-size: 4vw; /* Even larger font size for small screens */
+    }
 }
 
 /* Arrow */
