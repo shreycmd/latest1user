@@ -187,16 +187,17 @@ const Scratch = () => {
 
       if (response.ok) {
         const selectedCitem = result.data.find(product => product.Selectedproduct === formData.selectedProduct);
+        console.log(selectedCitem)
         if (selectedCitem) {
           if (selectedCitem.Status) {
-            alert('The prize has already been claimed.');
+            alert(`The prize has already been claimed ${selectedCitem.Scratchprize||selectedCitem.Wheelprize}.`);
             return;
           }
 
           const formDataToSend = new FormData();
           formDataToSend.append('WinnerImei', formData.productUID);
           formDataToSend.append('WinnerName', formData.customerName);
-          formDataToSend.append('Prize',  selectedCitem?.Wheelprize || selectedCitem?.Scratchprize);
+          formDataToSend.append('Prize', (type?selectedCitem?.Wheelprize:selectedCitem?.Scratchprize));
           formDataToSend.append('Claimedon', new Date().toLocaleDateString());
           formDataToSend.append('location', formData.placeOfPurchase);
           if (formData.invoice) formDataToSend.append('invoice', formData.invoice);
@@ -206,11 +207,11 @@ const Scratch = () => {
             body: formDataToSend,
           });
 
-          await fetch(`https://backend.jkvivo.in/ncitems/${selectedCitem.Campaign_Name}/${selectedCitem.WinnerImei}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ Status: true, Claimedon: new Date(), WinnerName: formData.customerName }),
-          });
+          // await fetch(`https://backend.jkvivo.in/ncitems/${selectedCitem.Campaign_Name}/${selectedCitem.WinnerImei}`, {
+          //   method: 'PUT',
+          //   headers: { 'Content-Type': 'application/json' },
+          //   body: JSON.stringify({ Status: true, Claimedon: new Date(), WinnerName: formData.customerName }),
+          // });
 
           navigate('/celebration', {
             state: {
@@ -225,11 +226,11 @@ const Scratch = () => {
           alert('Form submitted successfully!');
           handleReset();
         } else {
-          alert('Selected product not found.');
+          alert('Selected product not found or not part of camapign.');
         }
       } else {
         console.error('Error fetching products:', result.message);
-        alert('Error fetching products. Please try again later.');
+        alert("Product not part of campaign.");
       }
     } catch (error) {
       console.error('Submission error:', error);

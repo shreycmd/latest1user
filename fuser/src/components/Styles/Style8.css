@@ -23,10 +23,10 @@
 /* Spin Container */
 .spin_container {
     position: relative;
-    height: 40vw;
-    width: 40vw;
-    max-width: 400px;
-    max-height: 400px;
+    height: 50vw; /* Increased size */
+    width: 50vw; /* Increased size */
+    max-width: 500px; /* Adjusted max size */
+    max-height: 500px; /* Adjusted max size */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -82,19 +82,17 @@
     align-items: center;
     user-select: none;
     cursor: pointer;
-}
-
-.spin_container .wheel .number.active {
-    border: 2px solid #1e90ff;
+    padding: 10px; /* Decreased padding for smaller text */
+    overflow: hidden; /* Prevent text overflow */
 }
 
 /* Font size for prize labels */
 .spin_container .wheel .number span {
     position: relative;
     transform: rotate(45deg);
-    font-size: 1.8vw;
+    font-size: 1.2vw; /* Decreased font size to fit text */
     color: #fff;
-    text-shadow: 3px 5px 2px rgba(0, 0, 0, 0.15);
+    text-shadow: 2px 3px 2px rgba(0, 0, 0, 0.15);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -103,20 +101,55 @@
 /* Responsive font size adjustments */
 @media (max-width: 768px) {
     .spin_container .wheel .number span {
-        font-size: 3vw; /* Larger font size for tablets */
+        font-size: 2.5vw; /* Increased font size for tablets */
+    }
+
+    .spin_container {
+        height: 65vw; /* Increased wheel size for tablets */
+        width: 65vw; /* Increased width for tablets */
+        max-width: 85vw; /* Adjusted max width for tablets */
+        max-height: 85vw; /* Adjusted max height for tablets */
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 300px) {
+    .spin_container {
+        height: 80vw; /* Further increase wheel size for smaller screens */
+        width: 80vw; /* Further increase width for smaller screens */
+        max-width: 90vw; /* Adjusted max width for smaller screens */
+        max-height: 90vw; /* Adjusted max height for smaller screens */
+    }
+
+    .spin_container .spinBtn {
+        width: 24vw; /* Increase button size for small screens */
+        height: 24vw;
+        max-width: 130px; /* Adjusted max width */
+        max-height: 130px; /* Adjusted max height */
+    }
+
     .spin_container .wheel .number span {
-        font-size: 4vw; /* Even larger font size for small screens */
+        font-size: 4vw; /* Increased font size for small screens */
+    }
+
+    /* Adjust arrow size and position for mobile */
+    .arrow {
+        top: 0; /* Adjust the top position for better alignment */
+        border-left: 3vw solid transparent; /* Increased left border size */
+        border-right: 3vw solid transparent; /* Increased right border size */
+        border-bottom: 4vw solid #fc0707; /* Increased bottom border size */
+        transform: translateX(-50%); /* Keep it centered */
+    }
+
+    .congrats {
+        font-size: 2.5rem; /* Increased congrats message */
+        margin-top: 10px; /* Adjust margin for congrats */
     }
 }
 
 /* Arrow */
 .arrow {
     position: absolute;
-    top: 28%;
+    top: 32%; /* Default position for larger screens */
     left: 50%;
     transform: translateX(-50%);
     width: 0;
@@ -141,40 +174,20 @@
 /* Responsive adjustments for mobile devices */
 @media (max-width: 768px) {
     .spin_container {
-        height: 60vw; /* Increase wheel size for mobile */
-        width: 60vw;
-        max-width: 90vw;
-        max-height: 90vw;
+        height: 65vw; /* Increased wheel size for mobile */
+        width: 65vw; /* Increased width for mobile */
+        max-width: 90vw; /* Adjusted max width for mobile */
+        max-height: 90vw; /* Adjusted max height for mobile */
     }
 
     .spin_container .spinBtn {
         width: 20vw; /* Increase button size */
         height: 20vw;
-        max-width: 120px;
-        max-height: 120px;
+        max-width: 120px; /* Adjusted max width */
+        max-height: 120px; /* Adjusted max height */
     }
 
     .congrats {
-        font-size: 2.5rem; /* Slightly smaller text */
-    }
-}
-
-@media (max-width: 480px) {
-    .spin_container {
-        height: 70vw; /* Further increase wheel size for smaller screens */
-        width: 70vw;
-        max-width: 100vw;
-        max-height: 100vw;
-    }
-
-    .spin_container .spinBtn {
-        width: 24vw; /* Increase button size for small screens */
-        height: 24vw;
-        max-width: 130px;
-        max-height: 130px;
-    }
-
-    .congrats {
-        font-size: 2rem; /* Smaller congrats message for better fit */
+        font-size: 2.5rem; /* Increased text size for congrats */
     }
 }
