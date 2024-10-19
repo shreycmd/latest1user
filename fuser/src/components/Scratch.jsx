@@ -198,7 +198,7 @@ const Scratch = () => {
           formDataToSend.append('WinnerImei', formData.productUID);
           formDataToSend.append('WinnerName', formData.customerName);
           formDataToSend.append('Prize', (type?selectedCitem?.Wheelprize:selectedCitem?.Scratchprize));
-          formDataToSend.append('Claimedon', new Date().toLocaleDateString());
+          formDataToSend.append('Claimedon', Date.now());
           formDataToSend.append('location', formData.placeOfPurchase);
           if (formData.invoice) formDataToSend.append('invoice', formData.invoice);
 
