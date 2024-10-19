@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import vk1 from "../assets/vk1.png";
+import vk1 from "../assets/wheel.png";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -260,7 +260,7 @@ const Scratch = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-custom-radial-gradient p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-custom-radial-gradient p-4 mt-16">
       <div className='img mb-6 w-full max-w-2xl'>
         <img src={vk1} alt="Vivo" className='object-cover mx-auto rounded-lg w-full' />
       </div>

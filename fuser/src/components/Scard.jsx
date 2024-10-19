@@ -56,7 +56,7 @@ const Scard = ({ scprize }) => {
 
         if (percentScratched > 30 && !isConfettiTriggered.current) {
             isConfettiTriggered.current = true;
-            if (scprize !== 'BadLuck') triggerConfetti();
+            if (scprize !== 'HardLuck') triggerConfetti();
         }
     }, [scprize]);
 
@@ -110,7 +110,7 @@ const Scard = ({ scprize }) => {
                         {isPrizeRevealed && (
                             <div className="m-2">
                                 {scprize}
-                                {scprize !== "BadLuck" && (
+                                {scprize !== "HardLuck" && (
                                     <div>
                                         🎉 You won a prize! 🎉
                                     </div>

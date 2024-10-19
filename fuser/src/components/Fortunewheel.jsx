@@ -61,7 +61,7 @@ const Fortunewheel = ({ prizelist, wprize }) => {
 
       setCurIndex(arrowIndex);
       setWinningPrize(prizelist[arrowIndex]);
-      if (wprize !== "BadLuck") setIsConfettiActive(true);
+      if (wprize !== "HardLuck") setIsConfettiActive(true);
       setIsSpinning(false);
     }, 6000);
   };
@@ -115,8 +115,8 @@ const Fortunewheel = ({ prizelist, wprize }) => {
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
               {winningPrize && (
-                <p className={wprize === "BadLuck" ? "bad-luck" : "congrats-message"}>
-                  {wprize === "BadLuck" ? "Better Luck Next Time" : `Congratulations! You won: ${wprize}`}
+                <p className={wprize === "HardLuck" ? "bad-luck" : "congrats-message"}>
+                  {wprize === "HardLuck" ? "Better Luck Next Time" : `Congratulations! You won: ${wprize}`}
                 </p>
               )}
             </motion.div>
