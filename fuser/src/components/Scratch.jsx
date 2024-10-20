@@ -7,6 +7,7 @@ const Scratch = () => {
   const navigate = useNavigate();
   
   // Initial state
+  
   const [formData, setFormData] = useState({
     selectedCampaign: '',
     selectedProduct: '',
@@ -28,7 +29,7 @@ const Scratch = () => {
   const [productOptions, setProductOptions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [submissionMessage, setSubmissionMessage] = useState('');
-  const [type, setType] = useState(false);
+  const [type, setType] = useState('');
 
   // Fetch campaigns on mount only
   useEffect(() => {
@@ -43,7 +44,17 @@ const Scratch = () => {
               .filter(campaign => new Date(campaign.End_date) >= new Date()) // Filter campaigns by end_date
               .map(campaign => campaign.Name) // Map to campaign names
           );
-         setType(result.data[0]?.FortuneWheel);
+        //   console.log(result)
+        //  console.log(formData.selectedCampaign) 
+        if(formData.selectedCampaign){
+             result.data.forEach((item) => {
+  if (item.Name === formData.selectedCampaign) {
+    setType(item.FortuneWheel);
+  }
+});
+        }
+ 
+
         } else {
           console.log('Error fetching campaigns:', result.message);
           setErrors(prevErrors => ({
@@ -61,8 +72,8 @@ const Scratch = () => {
     };
 
     fetchCampaigns();
-  }, []);
-
+  }, [formData.selectedCampaign]);
+ 
   // Fetch products only when selectedCampaign changes
   useEffect(() => {
     const fetchProducts = async () => {
@@ -95,6 +106,7 @@ const Scratch = () => {
     };
 
     if (formData.selectedCampaign) {
+ 
       fetchProducts();
     } else {
       setProductOptions([]);
@@ -111,19 +123,16 @@ const Scratch = () => {
   
     if (name === 'invoice') {
       const file = files[0];
-      const maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+      // 5 MB in bytes
   
       if (file) {
         const isValidFileType = ['image/jpeg', 'image/jpg', 'image/png'].includes(file.type);
-        const isValidFileSize = file.size <= maxSize;
+        
   
         if (!isValidFileType) {
           alert('Only JPEG, JPG, and PNG files are allowed.');
           return; // Exit without setting the file if type is invalid
-        } else if (!isValidFileSize) {
-          alert('File size should not exceed 5 MB.');
-          return; // Exit without setting the file if size is invalid
-        }
+        } 
       }
   
       // Update state if the file is valid
@@ -186,19 +195,22 @@ const Scratch = () => {
       const result = await response.json();
 
       if (response.ok) {
+        
         const selectedCitem = result.data.find(product => product.Selectedproduct === formData.selectedProduct);
-        console.log(selectedCitem)
+        
         if (selectedCitem) {
           if (selectedCitem.Status) {
-            alert(`The prize has already been claimed ${selectedCitem.Scratchprize||selectedCitem.Wheelprize}.`);
+            alert(`The prize has already been claimed prize was ${type? selectedCitem.Wheelprize:selectedCitem.Scratchprize}.`);
             return;
           }
-
+console.log(type? selectedCitem.Wheelprize:selectedCitem.Scratchprize)
+console.log(selectedCitem.Wheelprize,selectedCitem.Scratchprize)
           const formDataToSend = new FormData();
           formDataToSend.append('WinnerImei', formData.productUID);
           formDataToSend.append('WinnerName', formData.customerName);
-          formDataToSend.append('Prize', (type?selectedCitem?.Wheelprize:selectedCitem?.Scratchprize));
+          formDataToSend.append('Prize', (type? selectedCitem.Wheelprize:selectedCitem.Scratchprize));
           formDataToSend.append('Claimedon', Date.now());
+          formDataToSend.append("Pno",formData.customerNumber);
           formDataToSend.append('location', formData.placeOfPurchase);
           if (formData.invoice) formDataToSend.append('invoice', formData.invoice);
 
