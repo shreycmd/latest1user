@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import vk1 from "../assets/wheel.png";
 import { useNavigate } from 'react-router-dom';
+import imageCompression from 'browser-image-compression';
 
 
 const Scratch = () => {
@@ -118,28 +119,41 @@ const Scratch = () => {
   const validatePhoneNumber = useCallback((number) => /^\d{10}$/.test(number), []);
 
   // Handle form input change
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     const { name, value, files } = e.target;
   
     if (name === 'invoice') {
       const file = files[0];
-      // 5 MB in bytes
   
       if (file) {
         const isValidFileType = ['image/jpeg', 'image/jpg', 'image/png'].includes(file.type);
-        
   
         if (!isValidFileType) {
           alert('Only JPEG, JPG, and PNG files are allowed.');
           return; // Exit without setting the file if type is invalid
-        } 
-      }
+        }
   
-      // Update state if the file is valid
-      setFormData(prevData => ({
-        ...prevData,
-        [name]: file,
-      }));
+        // Set compression options
+        const options = {
+          maxSizeMB: 0.05, // Maximum file size in MB (0.05 = 50KB)
+          maxWidthOrHeight: 800, // Resize the image (adjust width/height to 800px max)
+          useWebWorker: true, // Use web workers for faster compression
+        };
+  
+        try {
+          // Compress the file
+          const compressedFile = await imageCompression(file, options);
+  
+          // Update state with the compressed file
+          setFormData(prevData => ({
+            ...prevData,
+            [name]: compressedFile,
+          }));
+        } catch (error) {
+          console.error('Error compressing the image:', error);
+          alert('Error compressing the image. Please try again.');
+        }
+      }
     } else {
       // Update other form fields
       setFormData(prevData => ({
@@ -214,7 +228,7 @@ console.log(selectedCitem.Wheelprize,selectedCitem.Scratchprize)
           formDataToSend.append('location', formData.placeOfPurchase);
           if (formData.invoice) formDataToSend.append('invoice', formData.invoice);
 
-          await fetch(`https://backend.jkvivo.in/nc/${selectedCitem.Campaign_Name}`, {
+          await fetch(`http://localhost:3000/nc/${selectedCitem.Campaign_Name}`, {
             method: 'POST',
             body: formDataToSend,
           });
@@ -245,6 +259,7 @@ console.log(selectedCitem.Wheelprize,selectedCitem.Scratchprize)
         alert("Product not part of campaign.");
       }
     } catch (error) {
+      console.log(error)
       console.error('Submission error:', error);
       alert('An error occurred during submission. Please try again.');
     } finally {
