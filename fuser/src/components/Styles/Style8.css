@@ -23,10 +23,10 @@
 /* Spin Container */
 .spin_container {
     position: relative;
-    height: 50vw; /* Increased size */
-    width: 50vw; /* Increased size */
-    max-width: 500px; /* Adjusted max size */
-    max-height: 500px; /* Adjusted max size */
+    height: 60vw; /* Increased size for laptops */
+    width: 60vw; /* Increased size for laptops */
+    max-width: 600px; /* Adjusted max size */
+    max-height: 600px; /* Adjusted max size */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,10 +37,10 @@
 /* Spin Button */
 .spin_container .spinBtn {
     position: absolute;
-    width: 12vw;
-    height: 12vw;
-    max-width: 100px;
-    max-height: 100px;
+    width: 10vw; /* Adjusted size */
+    height: 10vw; /* Adjusted size */
+    max-width: 80px; /* Adjusted max width */
+    max-height: 80px; /* Adjusted max height */
     background: #fff;
     border-radius: 50%;
     z-index: 3;
@@ -82,58 +82,68 @@
     align-items: center;
     user-select: none;
     cursor: pointer;
-    padding: 10px; /* Decreased padding for smaller text */
+    padding: 9px; /* Padding for spacing */
     overflow: hidden; /* Prevent text overflow */
+    text-align: center; /* Center the text */
 }
 
 /* Font size for prize labels */
 .spin_container .wheel .number span {
     position: relative;
     transform: rotate(45deg);
-    font-size: 1.2vw; /* Decreased font size to fit text */
+    font-size: 1.5vw; /* Increased font size for laptops */
     color: #fff;
-    text-shadow: 2px 3px 2px rgba(0, 0, 0, 0.15);
+   text-shadow:  8px 2px 6px rgba(0, 0, 0, 0.7);
     display: flex;
+    font-family: 'Abril Fatface', serif;
+
+
+
     justify-content: center;
     align-items: center;
+    /* Stylish modern font */
+     /* Make the text bolder */
+    white-space: normal; /* Allow text to wrap */
+    max-width: 60%; /* Increased max-width to allow for better wrapping */
+    min-width: 30px; /* Ensure it doesn't overflow */
 }
 
 /* Responsive font size adjustments */
 @media (max-width: 768px) {
     .spin_container .wheel .number span {
-        font-size: 2.5vw; /* Increased font size for tablets */
+        font-size: 2rem; /* Increased font size for tablets */
     }
 
     .spin_container {
-        height: 65vw; /* Increased wheel size for tablets */
-        width: 65vw; /* Increased width for tablets */
-        max-width: 85vw; /* Adjusted max width for tablets */
-        max-height: 85vw; /* Adjusted max height for tablets */
+        height: 85vw; /* Increased wheel size for tablets */
+        width: 85vw; /* Increased width for tablets */
+        max-width: 90vw; /* Adjusted max width for tablets */
+        max-height: 90vw; /* Adjusted max height for tablets */
     }
 }
 
 @media (max-width: 300px) {
     .spin_container {
-        height: 80vw; /* Further increase wheel size for smaller screens */
-        width: 80vw; /* Further increase width for smaller screens */
-        max-width: 90vw; /* Adjusted max width for smaller screens */
-        max-height: 90vw; /* Adjusted max height for smaller screens */
+        height: 95vw; /* Further increase wheel size for smaller screens */
+        width: 95vw; /* Further increase width for smaller screens */
+        max-width: 100vw; /* Adjusted max width for smaller screens */
+        max-height: 100vw; /* Adjusted max height for smaller screens */
     }
 
     .spin_container .spinBtn {
-        width: 24vw; /* Increase button size for small screens */
-        height: 24vw;
-        max-width: 130px; /* Adjusted max width */
-        max-height: 130px; /* Adjusted max height */
+        width: 15vw; /* Decrease button size for better fit */
+        height: 15vw;
+        max-width: 90px; /* Adjusted max width */
+        max-height: 90px; /* Adjusted max height */
     }
 
     .spin_container .wheel .number span {
-        font-size: 4vw; /* Increased font size for small screens */
+        font-size: 2.5rem; /* Increased font size for small screens */
     }
 
     /* Adjust arrow size and position for mobile */
     .arrow {
-        top: 0; /* Adjust the top position for better alignment */
+        top: 16%; /* Adjust the top position for better alignment */
         border-left: 3vw solid transparent; /* Increased left border size */
         border-right: 3vw solid transparent; /* Increased right border size */
         border-bottom: 4vw solid #fc0707; /* Increased bottom border size */
@@ -141,7 +151,7 @@
     }
 
     .congrats {
-        font-size: 2.5rem; /* Increased congrats message */
+        font-size: 1.8rem; /* Decreased congrats message for smaller screens */
         margin-top: 10px; /* Adjust margin for congrats */
     }
 }
@@ -149,7 +159,7 @@
 /* Arrow */
 .arrow {
     position: absolute;
-    top: 32%; /* Default position for larger screens */
+    top: 36%; /* Default position for larger screens */
     left: 50%;
     transform: translateX(-50%);
     width: 0;
@@ -173,21 +183,30 @@
 
 /* Responsive adjustments for mobile devices */
 @media (max-width: 768px) {
+    .arrow {
+        top: 37%; /* Adjust the top position for better alignment */
+        border-left: 3vw solid transparent; /* Increased left border size */
+        border-right: 3vw solid transparent; /* Increased right border size */
+        border-bottom: 4vw solid #fc0707; /* Increased bottom border size */
+        transform: translateX(-50%); /* Keep it centered */
+    }
     .spin_container {
-        height: 65vw; /* Increased wheel size for mobile */
-        width: 65vw; /* Increased width for mobile */
-        max-width: 90vw; /* Adjusted max width for mobile */
+        height: 87vw; /* Increased wheel size for smaller screens */
+        width: 87vw; /* Increased width for smaller screens */
+        max-width: 90vw; /* Adjusted max width for smaller screens */
         max-height: 90vw; /* Adjusted max height for mobile */
     }
 
     .spin_container .spinBtn {
-        width: 20vw; /* Increase button size */
-        height: 20vw;
-        max-width: 120px; /* Adjusted max width */
-        max-height: 120px; /* Adjusted max height */
+        width: 15vw; /* Decrease button size */
+        height: 15vw; /* Decrease button height */
+        max-width: 80px; /* Adjusted max width */
+        max-height: 80px; /* Adjusted max height */
     }
-
+    .spin_container .wheel .number span {
+        font-size: 1rem; /* Adjusted font size for smaller screens */
+    }
     .congrats {
-        font-size: 2.5rem; /* Increased text size for congrats */
+        font-size: 1.8rem; /* Decreased text size for congrats */
     }
 }

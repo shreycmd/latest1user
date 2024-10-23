@@ -29,7 +29,7 @@ export const Header = () => {
 
   return (
     <motion.div
-      className={`fixed z-10 bg-white top-0 w-full h-fit flex justify-between items-center py-3 px-4 md:px-8 ${
+      className={`fixed z-10 bg-white top-0 w-full h-fit flex justify-between items-center py-1 px-4 md:px-8 ${
         nav ? " shadow-sm shadow-black duration-300" : "duration-300"
       }`}
       animate={controls}

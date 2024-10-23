@@ -33,8 +33,12 @@ const Fortunewheel = ({ prizelist, wprize }) => {
 
   // Color options for the segments
   const colors = useMemo(() => [
-    "#FF6F61", "#6B5B93", "#88B04B", "#F7CAC9", "#92A8D1",
-    "#955251", "#D6D6D6", "#FFCC29", "#5D7E96", "#C3D6B9"
+    "#FFCC29", // Yellow
+    "#FF6F61", // Reddish
+    "#FFB74D", // Soft Orange
+    "#D64B3D", // Darker Reddish
+    "#C74A39"
+    
   ], []);
 
   const segments = useMemo(() => prizelist.map((item, index) => ({
@@ -78,34 +82,35 @@ const Fortunewheel = ({ prizelist, wprize }) => {
 
             {/* Spin Button */}
             <div
-              className={`spinBtn ${isSpinning ? "disabled" : ""}`}
-              onClick={rotateWheel}
-              style={{ cursor: isSpinning ? "not-allowed" : "pointer" }}
-            >
-              {isSpinning ? "SPINNING..." : "SPIN"}
-            </div>
+            className={`spinBtn ${isSpinning ? "disabled" : ""}`}
+            onClick={rotateWheel}
+            style={{ cursor: isSpinning ? "not-allowed" : "pointer" }}
+        >
+            SPIN
+        </div>
 
             {/* Wheel */}
             <div
-              className="wheel"
-              style={{
-                transform: `rotate(${rotationAngle}deg)`,
-                transition: "transform 6s cubic-bezier(0.25, 1, 0.5, 1)",
-              }}
-            >
-              {segments.map((segment, index) => (
-                <div
-                  className={`number ${index === curIndex ? "active" : ""}`}
-                  key={index}
-                  style={{
-                    backgroundColor: segment.color,
-                    transform: `rotate(${index * (360 / segments.length)}deg)`,
-                  }}
-                >
-                  <span>{segment.value}</span>
-                </div>
-              ))}
-            </div>
+  className="wheel"
+  style={{
+    transform: `rotate(${rotationAngle}deg)`,
+    transition: "transform 6s cubic-bezier(0.25, 1, 0.5, 1)",
+  }}
+>
+  {segments.map((segment, index) => (
+    <div
+      className={`number ${index === curIndex ? "active" : ""}`}
+      key={index}
+      style={{
+        backgroundColor: segment.color,
+        transform: `rotate(${index * (360 / segments.length)}deg)`,
+      }}
+    >
+      <span style={{ whiteSpace: 'normal' }}>{segment.value}</span> {/* Allow wrapping */}
+    </div>
+  ))}
+</div>
+
 
             {/* Congrats Message */}
             <motion.div
