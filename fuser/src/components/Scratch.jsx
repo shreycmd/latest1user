@@ -43,10 +43,11 @@ const Scratch = () => {
           setCampaignOptions(
             result.data
               .filter(campaign => {
-                const now = new Date();
-                const startDate = new Date(campaign.Start_date);
-                const endDate = new Date(campaign.End_date);
-                return startDate <= now && endDate >= now; // Check if current date is between Start_date and End_date
+                const now = new Date().toLocaleDateString();
+                const startDate = new Date(campaign.Start_date).toLocaleDateString();
+                const endDate = new Date(campaign.End_date).toLocaleDateString();
+                console.log(startDate ,endDate, now)
+                return startDate <=now && endDate > now; // Check if current date is between Start_date and End_date
               })
               .map(campaign => campaign.Name) // Map to campaign names
           );
