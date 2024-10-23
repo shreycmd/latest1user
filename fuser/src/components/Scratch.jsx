@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import vk1 from "../assets/wheel.png";
 import { useNavigate } from 'react-router-dom';
-import imageCompression from 'browser-image-compression';
+//import imageCompression from 'browser-image-compression';
 
 
 const Scratch = () => {
@@ -119,7 +119,7 @@ const Scratch = () => {
   const validatePhoneNumber = useCallback((number) => /^\d{10}$/.test(number), []);
 
   // Handle form input change
-  const handleChange = async (e) => {
+  const handleChange =  (e) => {
     const { name, value, files } = e.target;
   
     if (name === 'invoice') {
@@ -134,20 +134,20 @@ const Scratch = () => {
         }
   
         // Set compression options
-        const options = {
-          maxSizeMB: 0.05, // Maximum file size in MB (0.05 = 50KB)
-          maxWidthOrHeight: 800, // Resize the image (adjust width/height to 800px max)
-          useWebWorker: true, // Use web workers for faster compression
-        };
+      //  // const options = {
+      //     maxSizeMB: 0.05, // Maximum file size in MB (0.05 = 50KB)
+      //     maxWidthOrHeight: 800, // Resize the image (adjust width/height to 800px max)
+      //     useWebWorker: true, // Use web workers for faster compression
+      //   };
   
         try {
           // Compress the file
-          const compressedFile = await imageCompression(file, options);
+          //const compressedFile = await imageCompression(file, options);
   
           // Update state with the compressed file
           setFormData(prevData => ({
             ...prevData,
-            [name]: compressedFile,
+            [name]: file,
           }));
         } catch (error) {
           console.error('Error compressing the image:', error);
