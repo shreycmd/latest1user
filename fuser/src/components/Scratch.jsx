@@ -228,7 +228,7 @@ console.log(selectedCitem.Wheelprize,selectedCitem.Scratchprize)
           formDataToSend.append('location', formData.placeOfPurchase);
           if (formData.invoice) formDataToSend.append('invoice', formData.invoice);
 
-          await fetch(`http://localhost:3000/nc/${selectedCitem.Campaign_Name}`, {
+          await fetch(`https://backend.jkvivo.in/nc/${selectedCitem.Campaign_Name}`, {
             method: 'POST',
             body: formDataToSend,
           });
