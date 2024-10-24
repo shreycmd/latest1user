@@ -38,16 +38,16 @@ const Scratch = () => {
       try {
         const response = await fetch('https://backend.jkvivo.in/campaign');
         const result = await response.json();
-      console.log(result.data)
+      
         if (response.ok&&result.data) {
           setCampaignOptions(
             result.data
               .filter(campaign => {
-                const now = new Date().toLocaleDateString();
-                const startDate = new Date(campaign.Start_date).toLocaleDateString();
-                const endDate = new Date(campaign.End_date).toLocaleDateString();
+                const now = new Date().toDateString();
+                const startDate = new Date(campaign.Start_date).toDateString();
+                const endDate = new Date(campaign.End_date).toDateString();
                 console.log(startDate ,endDate, now)
-                return startDate <=now && endDate > now; // Check if current date is between Start_date and End_date
+                return endDate > now; // Check if current date is between Start_date and End_date
               })
               .map(campaign => campaign.Name) // Map to campaign names
           );
@@ -77,8 +77,9 @@ const Scratch = () => {
         }));
       }
     };
-
+    console.log(campaignOptions)
     fetchCampaigns();
+   
   }, [formData.selectedCampaign]);
  
   // Fetch products only when selectedCampaign changes
