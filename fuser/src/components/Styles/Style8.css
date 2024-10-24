@@ -104,14 +104,14 @@
     /* Stylish modern font */
      /* Make the text bolder */
     white-space: normal; /* Allow text to wrap */
-    max-width: 60%; /* Increased max-width to allow for better wrapping */
+    max-width: 65%; /* Increased max-width to allow for better wrapping */
     min-width: 30px; /* Ensure it doesn't overflow */
 }
 
 /* Responsive font size adjustments */
 @media (max-width: 768px) {
     .spin_container .wheel .number span {
-        font-size: 2rem; /* Increased font size for tablets */
+        font-size: 1rem; /* Increased font size for tablets */
     }
 
     .spin_container {
@@ -138,7 +138,7 @@
     }
 
     .spin_container .wheel .number span {
-        font-size: 2.5rem; /* Increased font size for small screens */
+        font-size: 2rem; /* Increased font size for small screens */
     }
 
     /* Adjust arrow size and position for mobile */
@@ -204,9 +204,9 @@
         max-height: 80px; /* Adjusted max height */
     }
     .spin_container .wheel .number span {
-        font-size: 1rem; /* Adjusted font size for smaller screens */
+        font-size: .9rem; /* Adjusted font size for smaller screens */
     }
     .congrats {
-        font-size: 1.8rem; /* Decreased text size for congrats */
+        font-size: 1.7rem; /* Decreased text size for congrats */
     }
 }
