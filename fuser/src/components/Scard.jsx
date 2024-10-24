@@ -79,6 +79,7 @@ const Scard = ({ scprize }) => {
     }, [handleScratch, calculateScratchedPercentage]);
 
     const handleTouchStart = (e) => {
+        e.preventDefault(); // Prevent scrolling
         isScratchingRef.current = true;
         const rect = canvasRef.current.getBoundingClientRect();
         const touch = e.touches[0];
@@ -86,6 +87,7 @@ const Scard = ({ scprize }) => {
     };
 
     const handleTouchMove = useCallback((e) => {
+        e.preventDefault(); // Prevent scrolling
         if (isScratchingRef.current) {
             const rect = canvasRef.current.getBoundingClientRect();
             const touch = e.touches[0];
@@ -95,6 +97,11 @@ const Scard = ({ scprize }) => {
     }, [handleScratch, calculateScratchedPercentage]);
 
     const handleMouseUp = () => {
+        isScratchingRef.current = false;
+    };
+
+    const handleTouchEnd = (e) => {
+        e.preventDefault(); // Prevent scrolling
         isScratchingRef.current = false;
     };
 
@@ -129,7 +136,7 @@ const Scard = ({ scprize }) => {
                         onMouseLeave={() => (isScratchingRef.current = false)}
                         onTouchStart={handleTouchStart}
                         onTouchMove={handleTouchMove}
-                        onTouchEnd={handleMouseUp}
+                        onTouchEnd={handleTouchEnd}
                     ></canvas>
                 </div>
             </div>

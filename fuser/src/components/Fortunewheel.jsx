@@ -33,11 +33,12 @@ const Fortunewheel = ({ prizelist, wprize }) => {
 
   // Color options for the segments
   const colors = useMemo(() => [
-    "#FFCC29", // Yellow
-    "#FF6F61", // Reddish
-    "#FFB74D", // Soft Orange
-    "#D64B3D", // Darker Reddish
-    "#C74A39"
+   "#FFCC29", // Bright Gold
+  "#FF6F61", // Warm Reddish-Orange
+  "#D32F2F", // Dark Red
+  "#FFD700", // Vivid Yellow-Orange
+  "#E65100" // Darker Reddish
+
     
   ], []);
 
