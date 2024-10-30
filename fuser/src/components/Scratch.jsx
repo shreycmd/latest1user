@@ -42,13 +42,7 @@ const Scratch = () => {
         if (response.ok&&result.data) {
           setCampaignOptions(
             result.data
-              .filter(campaign => {
-                const now = new Date().toDateString();
-                const startDate = new Date(campaign.Start_date).toDateString();
-                const endDate = new Date(campaign.End_date).toDateString();
-                console.log(startDate ,endDate, now)
-                return endDate > now; // Check if current date is between Start_date and End_date
-              })
+              
               .map(campaign => campaign.Name) // Map to campaign names
           );
         //   console.log(result)
