@@ -38,13 +38,28 @@ const Scratch = () => {
       try {
         const response = await fetch('https://backend.jkvivo.in/campaign');
         const result = await response.json();
-      
+        console.log(result.data)
         if (response.ok&&result.data) {
           setCampaignOptions(
             result.data
-              
+              .filter(campaign => {
+                const now = new Date();
+                const startDate = new Date(campaign.Start_date);
+                const endDate = new Date(campaign.End_date);
+          
+                // Extract day-level components for comparison
+                const nowDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                const start = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+                const end = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+          
+                console.log("Start:", start.toDateString(), "End:", end.toDateString(), "Now:", nowDate.toDateString());
+          
+                return start <= nowDate && end > nowDate; // Check if now is between start and end dates
+              })
               .map(campaign => campaign.Name) // Map to campaign names
           );
+          
+          
         //   console.log(result)
         //  console.log(formData.selectedCampaign) 
         if(formData.selectedCampaign){
