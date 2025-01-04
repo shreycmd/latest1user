@@ -34,35 +34,48 @@ const Scard = ({ scprize }) => {
         ctx.beginPath();
         ctx.arc(x, y, 20, 0, Math.PI * 2, false);
         ctx.fill();
-
-        setIsPrizeRevealed(true);
     }, []);
-
+    const triggerConfetti = useCallback(() => {
+        confetti(confettiConfig.current);
+    }, []);
     const calculateScratchedPercentage = useCallback(() => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const pixels = imageData.data;
         let scratchedPixels = 0;
-
+    
         for (let i = 0; i < pixels.length; i += 4) {
             if (pixels[i + 3] === 0) {
                 scratchedPixels++;
             }
         }
-
+    
         const totalPixels = canvas.width * canvas.height;
         const percentScratched = (scratchedPixels / totalPixels) * 100;
-
+    
         if (percentScratched > 30 && !isConfettiTriggered.current) {
             isConfettiTriggered.current = true;
+    
             if (scprize !== 'HardLuck') triggerConfetti();
+    
+            // Fade out the scratch area
+            let opacity = 1;
+            const fadeInterval = setInterval(() => {
+                opacity -= 0.05;
+                canvas.style.opacity = opacity;
+    
+                if (opacity <= 0) {
+                    clearInterval(fadeInterval);
+                    canvas.style.display = 'none'; // Optional: Hide the canvas completely after fade-out
+                    setIsPrizeRevealed(true);
+                }
+            }, 50); // Adjust the interval speed for smoother fading
         }
-    }, [scprize]);
+    }, [scprize, triggerConfetti]);
+    
 
-    const triggerConfetti = useCallback(() => {
-        confetti(confettiConfig.current);
-    }, []);
+   
 
     const handleMouseDown = (e) => {
         isScratchingRef.current = true;
@@ -79,7 +92,7 @@ const Scard = ({ scprize }) => {
     }, [handleScratch, calculateScratchedPercentage]);
 
     const handleTouchStart = (e) => {
-        e.preventDefault(); // Prevent scrolling
+        e.preventDefault();
         isScratchingRef.current = true;
         const rect = canvasRef.current.getBoundingClientRect();
         const touch = e.touches[0];
@@ -87,7 +100,7 @@ const Scard = ({ scprize }) => {
     };
 
     const handleTouchMove = useCallback((e) => {
-        e.preventDefault(); // Prevent scrolling
+        e.preventDefault();
         if (isScratchingRef.current) {
             const rect = canvasRef.current.getBoundingClientRect();
             const touch = e.touches[0];
@@ -101,7 +114,7 @@ const Scard = ({ scprize }) => {
     };
 
     const handleTouchEnd = (e) => {
-        e.preventDefault(); // Prevent scrolling
+        e.preventDefault();
         isScratchingRef.current = false;
     };
 
@@ -114,16 +127,12 @@ const Scard = ({ scprize }) => {
                 </div>
                 <div className="scratch-card-container">
                     <div className="prize text-xl">
-                        {isPrizeRevealed && (
+                        
                             <div className="m-2">
+                                {scprize !== "HardLuck" && <div>🎉 You won a prize! 🎉</div>}
                                 {scprize}
-                                {scprize !== "HardLuck" && (
-                                    <div>
-                                        🎉 You won a prize! 🎉
-                                    </div>
-                                )}
                             </div>
-                        )}
+                        
                     </div>
                     <canvas
                         ref={canvasRef}
