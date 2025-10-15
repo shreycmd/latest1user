@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import vk1 from "../assets/Landscape.png";
+import vk1 from "../assets/nw.jpg";
 import { useNavigate } from "react-router-dom";
 import imageCompression from "browser-image-compression";
 
