@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import vk from "../assets/nw.jpg";
+import vk from "../assets/i1.png";
 import Carousel from './Carousel';
 import { Link } from 'react-router-dom';
 
