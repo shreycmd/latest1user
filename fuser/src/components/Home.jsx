@@ -1,20 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import vk from "../assets/i1.png";
+import HeroCarousel from './HeroCarousel';
 import Carousel from './Carousel';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
     <div className='bg-custom-radial-gradient pt-20 px-4 sm:px-8 lg:px-16'>
-      <motion.img
-        src={vk}
-        alt="Vivo"
-        className='object-cover mx-auto mb-6 rounded-lg w-full '
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-      />
+      <HeroCarousel />
       {/* <Imgslider/> */}
       <Carousel />
       <div className="w-full mt-10 py-10 flex justify-center">
