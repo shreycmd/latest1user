@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 import m1 from "../assets/m1.webp";
 import m2 from "../assets/m2.webp";
@@ -17,9 +17,9 @@ const products = [
   { id: 3, name: "Vivo Y400 Pro 5G", image: m3 },
   { id: 4, name: "Vivo X300 Ultra", image: m4 },
   { id: 5, name: "Vivo X300 FE", image: m5 },
-  { id: 6, name: "Vivo V70 F3", image: m6 },
+  { id: 6, name: "Vivo V70 FE", image: m6 },
   { id: 7, name: "Vivo V70 Elite", image: m7 },
-  { id: 8, name: "Vivo Y51 Pro 5G", image: m8 }
+  { id: 8, name: "Vivo Y51 Pro 5G", image: m8 },
 ];
 
 const cardGradients = [
@@ -29,7 +29,7 @@ const cardGradients = [
   "from-emerald-500/10 via-emerald-500/5 to-transparent",
   "from-indigo-500/10 via-indigo-500/5 to-transparent",
   "from-cyan-500/10 via-cyan-500/5 to-transparent",
-  "from-purple-500/10 via-purple-500/5 to-transparent"
+  "from-purple-500/10 via-purple-500/5 to-transparent",
 ];
 
 const Carousel = () => {
@@ -41,7 +41,8 @@ const Carousel = () => {
           Our Exclusive Range of Products
         </h2>
         <p className="text-slate-500 text-sm md:text-base max-w-xl mx-auto font-medium">
-          Participate in our lucky draw for a chance to win one of these premium devices.
+          Participate in our lucky draw for a chance to win one of these premium
+          devices.
         </p>
       </div>
 
@@ -64,15 +65,21 @@ const Carousel = () => {
                 >
                   {/* Decorative hover glow */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                  
+
                   {/* Image background gradient container */}
-                  <div className={`relative w-full h-48 flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-b ${cardGradients[i % cardGradients.length]} p-4 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.05)] transition-shadow duration-300`}>
+                  <div
+                    className={`relative w-full h-48 flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-b ${cardGradients[i % cardGradients.length]} p-4 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.05)] transition-shadow duration-300`}
+                  >
                     <motion.img
                       src={product.image}
                       alt={product.name}
                       className="h-full object-contain drop-shadow-[0_15px_15px_rgba(0,0,0,0.15)] z-10"
                       whileHover={{ scale: 1.15, rotate: 2 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 15,
+                      }}
                     />
                   </div>
 
@@ -88,7 +95,10 @@ const Carousel = () => {
           </div>
 
           {/* Row 2 */}
-          <div className="flex shrink-0 gap-6 pr-6 animate-slide group-hover/marquee:[animation-play-state:paused]" aria-hidden="true">
+          <div
+            className="flex shrink-0 gap-6 pr-6 animate-slide group-hover/marquee:[animation-play-state:paused]"
+            aria-hidden="true"
+          >
             {products.map((product, i) => (
               <Link key={`r2-${product.id}`} to="/form">
                 <motion.div
@@ -98,15 +108,21 @@ const Carousel = () => {
                 >
                   {/* Decorative hover glow */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                  
+
                   {/* Image background gradient container */}
-                  <div className={`relative w-full h-48 flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-b ${cardGradients[i % cardGradients.length]} p-4 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.05)] transition-shadow duration-300`}>
+                  <div
+                    className={`relative w-full h-48 flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-b ${cardGradients[i % cardGradients.length]} p-4 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.05)] transition-shadow duration-300`}
+                  >
                     <motion.img
                       src={product.image}
                       alt={product.name}
                       className="h-full object-contain drop-shadow-[0_15px_15px_rgba(0,0,0,0.15)] z-10"
                       whileHover={{ scale: 1.15, rotate: 2 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 15,
+                      }}
                     />
                   </div>
 
